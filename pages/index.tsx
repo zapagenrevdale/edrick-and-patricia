@@ -4,6 +4,7 @@ import content from "@/contents";
 import { useState } from "react";
 import SpeakerWaveIcon from "@heroicons/react/24/outline/SpeakerWaveIcon";
 import SpeakerXMarkIcon from "@heroicons/react/24/outline/SpeakerXMarkIcon";
+import Head from "next/head";
 
 const ImageDiv = () => {
   const [selected, setSelected] = useState(-1);
@@ -71,6 +72,9 @@ const VideoDiv = () => {
 const Home = () => {
   return (
     <div className="w-full flex flex-col items-center">
+      <Head>
+        <title>Edrick and Patricia</title>
+      </Head>
       <header className="bg-white w-full h-32 border-b mb-12 flex justify-center sticky top-0 z-40">
         <div className="container h-full flex justify-between items-center px-10">
           {/* logo text */}
