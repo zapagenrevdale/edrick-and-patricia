@@ -88,7 +88,12 @@ const Home = () => {
         </div>
       </header>
       <div className="container relative flex flex-col items-center justify-center pb-24">
-        <div className="pb-10" id="video"></div>
+        <div className="pb-10 text-center" id="video">
+          <h5 className=" text-neutral-700 text-base md:text-lg lg:text-xl px-4 lg:px-10">
+            In this enchanted moment, a mesmerizing love story unfolds.
+          </h5>
+          <p className="text-xs lg:text-sm text-neutral-500">June 2, 2023</p>
+        </div>
         <VideoDiv />
 
         <div className="h-40 relative w-full">
