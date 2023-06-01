@@ -44,7 +44,7 @@ const VideoDiv = () => {
   };
 
   return (
-    <div className="relative w-full h-0 pb-[56.25%] overflow-hidden" >
+    <div className="relative w-full h-0 pb-[56.25%] overflow-hidden">
       <video
         className="absolute top-0 left-0 w-full h-full object-cover"
         autoPlay
@@ -72,15 +72,15 @@ const Home = () => {
   return (
     <div className="w-full flex flex-col items-center">
       <header className="bg-white w-full h-32 border-b mb-12 flex justify-center sticky top-0 z-40">
-        <div className="container h-full flex justify-between items-center">
+        <div className="container h-full flex justify-between items-center px-10">
           {/* logo text */}
-          <div className="h-full flex items-center px-10">
-            <h1 className="font-parisienne text-6xl font-bold text-neutral-700">
+          <div className="h-full flex items-center justify-center lg:px-10">
+            <h1 className="font-parisienne text-4xl md:text-5xl lg:text-6xl font-bold text-neutral-700">
               Edrick & Patricia
             </h1>
           </div>
           {/* navigation */}
-          <nav className="flex gap-x-12 text-xl text-neutral-700">
+          <nav className="hidden lg:flex gap-x-12 text-xl text-neutral-700 ">
             <NavLink href="/" text="Home" />
             <NavLink href="/#video" text="Video" />
             <NavLink href="/#images" text="Images" />
@@ -100,7 +100,7 @@ const Home = () => {
             className="absolute top-0 left-[50%] translate-x-[-50%] h-full object-cover"
           />
         </div>
-        <p className="text-center w-3/4 px-10 pb-10  text-xl">
+        <p className="text-center w-3/4 px-4 lg:px-10 pb-10 text-base lg:text-xl">
           {`Love is not about how many days, months, or years you have been
           together. It's all about how much you love each other every day.`}
         </p>
@@ -134,7 +134,7 @@ const Home = () => {
             className="absolute top-0 left-[50%] translate-x-[-50%] h-full object-cover"
           />
         </div>
-        <p className="text-center w-3/4 px-10 pb-10  text-xl">
+        <p className="text-center w-3/4 px-4 lg:px-10 pb-10 text-base lg:text-xl">
           Embrace the love and joy of the special day, as cherished moments,
           heartfelt vows, and radiant smiles are captured, forever preserving
           the celebration of the union.
