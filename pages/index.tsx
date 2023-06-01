@@ -1,124 +1,149 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
+import NavLink from "@/components/atom/link";
+import Image from "next/image";
+import content from "@/contents";
+import { useState } from "react";
+import SpeakerWaveIcon from "@heroicons/react/24/outline/SpeakerWaveIcon";
+import SpeakerXMarkIcon from "@heroicons/react/24/outline/SpeakerXMarkIcon";
 
-const inter = Inter({ subsets: ['latin'] })
+const ImageDiv = () => {
+  const [selected, setSelected] = useState(-1);
 
-export default function Home() {
+  const onMouseEnter = (index: number) => {
+    setSelected(index);
+  };
+
+  const onMouseLeave = () => {
+    setSelected(-1);
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full">
+      {content.images.map((image, index) => (
         <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+          src={image}
+          key={index}
+          alt={image}
+          width={1000}
+          height={1000}
+          onMouseEnter={() => onMouseEnter(index)}
+          onMouseLeave={onMouseLeave}
+          className={`border-[8px] border-neutral-600 rounded-sm ${
+            selected === index || selected === -1 ? "blur-none" : "blur-sm"
+          } hover:blur-none hover:-translate-y-1 duration-75 hover:z-20 hover:border-neutral-700`}
         />
+      ))}
+    </div>
+  );
+};
+
+const VideoDiv = () => {
+  const [muted, setMuted] = useState(true);
+
+  const toggleMute = () => {
+    setMuted(!muted);
+  };
+
+  return (
+    <div className="relative w-full h-0 pb-[56.25%] overflow-hidden" >
+      <video
+        className="absolute top-0 left-0 w-full h-full object-cover"
+        autoPlay
+        loop
+        muted={muted}
+      >
+        <source src="/images/video.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+      <button
+        className="absolute z-10 bottom-[2vw] right-[3vw] rounded-full bg-neutral-700/50 p-2 border-2 border-neutral-50"
+        onClick={toggleMute}
+      >
+        {muted ? (
+          <SpeakerXMarkIcon className="h-4 md:h-5 text-white" />
+        ) : (
+          <SpeakerWaveIcon className="h-4 md:h-5 text-white" />
+        )}
+      </button>
+    </div>
+  );
+};
+
+const Home = () => {
+  return (
+    <div className="w-full flex flex-col items-center">
+      <header className="bg-white w-full h-32 border-b mb-12 flex justify-center sticky top-0 z-40">
+        <div className="container h-full flex justify-between items-center">
+          {/* logo text */}
+          <div className="h-full flex items-center px-10">
+            <h1 className="font-parisienne text-6xl font-bold text-neutral-700">
+              Edrick & Patricia
+            </h1>
+          </div>
+          {/* navigation */}
+          <nav className="flex gap-x-12 text-xl text-neutral-700">
+            <NavLink href="/" text="Home" />
+            <NavLink href="/#video" text="Video" />
+            <NavLink href="/#images" text="Images" />
+          </nav>
+        </div>
+      </header>
+      <div className="container relative flex flex-col items-center justify-center pb-24">
+        <div className="pb-10" id="video"></div>
+        <VideoDiv />
+
+        <div className="h-40 relative w-full">
+          <Image
+            src="/images/divider.svg"
+            height={100}
+            width={600}
+            alt="divider"
+            className="absolute top-0 left-[50%] translate-x-[-50%] h-full object-cover"
+          />
+        </div>
+        <p className="text-center w-3/4 px-10 pb-10  text-xl">
+          {`Love is not about how many days, months, or years you have been
+          together. It's all about how much you love each other every day.`}
+        </p>
+
+        {/* hero */}
+        <div className="relative">
+          <Image
+            src="/images/main.jpg"
+            width={1400}
+            height={1000}
+            alt="Main Background Photo"
+            style={{
+              width: "100%",
+              opacity: "0.9",
+            }}
+          />
+
+          {/* <div className="font-parisienne text-[4vw] text-neutral-700 absolute top-[20vw] right-[10vw] text-center">
+          <h2>Edrick</h2>
+          <p className="text-2xl">and</p>
+          <h2>Patricia</h2>
+        </div> */}
+        </div>
+
+        <div className="h-40 relative w-full" id="images">
+          <Image
+            src="/images/divider.svg"
+            height={100}
+            width={600}
+            alt="divider"
+            className="absolute top-0 left-[50%] translate-x-[-50%] h-full object-cover"
+          />
+        </div>
+        <p className="text-center w-3/4 px-10 pb-10  text-xl">
+          Embrace the love and joy of the special day, as cherished moments,
+          heartfelt vows, and radiant smiles are captured, forever preserving
+          the celebration of the union.
+        </p>
+        {/*  */}
+        <ImageDiv />
       </div>
+    </div>
+  );
+};
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`${inter.className} mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p
-            className={`${inter.className} m-0 max-w-[30ch] text-sm opacity-50`}
-          >
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
-}
+export default Home;
