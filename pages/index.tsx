@@ -28,9 +28,9 @@ const ImageDiv = () => {
           height={1000}
           onMouseEnter={() => onMouseEnter(index)}
           onMouseLeave={onMouseLeave}
-          className={`border-[8px] border-neutral-600 rounded-sm ${
+          className={`rounded-lg ${
             selected === index || selected === -1 ? "blur-none" : "blur-sm"
-          } hover:blur-none hover:-translate-y-1 duration-75 hover:z-20 hover:border-neutral-700`}
+          } hover:blur-none hover:z-20 hover:border-neutral-700`}
         />
       ))}
     </div>
